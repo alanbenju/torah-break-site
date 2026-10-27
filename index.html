@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="es" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>Torah Break · Menos scroll. Más Torá.</title>
+<meta name="description" content="Torah Break detecta cuando pasás demasiado tiempo en redes y te propone una pausa de dos minutos con la Torá. iOS y Android. Español, English, עברית.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700&family=Frank+Ruhl+Libre:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --primary:#7A2232;--on-primary:#F6EFDF;--primary-container:#EED5D1;--on-primary-container:#4A1220;
+  --bg:#E8DCC2;--surface:#F6EFDF;--sunken:#DFD1B3;--ink:#1E1912;--muted:#5A4E3C;--outline:#857455;--border:#C9B994;
+  --fd:'Frank Ruhl Libre',Georgia,'Times New Roman',serif;--fb:Assistant,system-ui,-apple-system,'Segoe UI',Arial,sans-serif;
+  --r:6px;--gut:clamp(20px,5vw,48px);
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --primary:#E7A3A6;--on-primary:#3A0E17;--primary-container:#5E1826;--on-primary-container:#F6D9DA;
+  --bg:#1E1912;--surface:#2A231A;--sunken:#231D15;--ink:#F2E8D3;--muted:#C9B99A;--outline:#8E7E62;--border:#4A3F30;color-scheme:dark}}
+:root[data-theme="dark"]{--primary:#E7A3A6;--on-primary:#3A0E17;--primary-container:#5E1826;--on-primary-container:#F6D9DA;
+  --bg:#1E1912;--surface:#2A231A;--sunken:#231D15;--ink:#F2E8D3;--muted:#C9B99A;--outline:#8E7E62;--border:#4A3F30;color-scheme:dark}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-padding-top:calc(72px + env(safe-area-inset-top,0px));scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 18px/1.6 var(--fb)}
+a{color:var(--primary)}a:hover{text-decoration-thickness:2px}
+:focus-visible{outline:2px solid var(--primary);outline-offset:3px}
+.wrap{max-width:1120px;margin:0 auto;padding-inline:var(--gut)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+h1,h2,h3{margin:0;font-family:var(--fd);font-weight:700;line-height:1.1}
+p{margin:0}
+/* header */
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:var(--bg);border-bottom:1px solid var(--border)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:11;background:var(--bg)}
+.nav{display:flex;align-items:center;gap:20px;min-height:68px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);font:900 22px var(--fd);margin-inline-end:auto}
+.nav a.l{color:var(--ink);text-decoration:none;font-weight:600;font-size:16px}
+.nav a.l:hover{color:var(--primary)}
+.lang{display:flex;border:1px solid var(--outline);border-radius:var(--r);overflow:hidden}
+.lang button{min-width:44px;min-height:40px;border:0;background:transparent;color:var(--muted);font:600 15px var(--fb);cursor:pointer}
+.lang button+button{border-inline-start:1px solid var(--outline)}
+.lang button[aria-pressed="true"]{background:var(--primary-container);color:var(--on-primary-container)}
+@media (max-width:640px){.nav a.l{display:none}}
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding-inline:24px;border-radius:var(--r);font:600 17px var(--fb);text-decoration:none;border:1px solid transparent;cursor:pointer}
+.btn-primary{background:var(--primary);color:var(--on-primary)}
+.btn-primary:hover{filter:brightness(1.08)}
+.btn-outline{border-color:var(--outline);color:var(--primary);background:transparent}
+/* hero */
+.hero{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:56px;align-items:center;padding-block:clamp(48px,8vw,104px)}
+@media (max-width:880px){.hero{grid-template-columns:1fr}}
+.hero h1{font-size:clamp(46px,7.5vw,88px);letter-spacing:-.02em;font-weight:900}
+.hero .sub{font-size:clamp(19px,2.2vw,22px);color:var(--muted);max-width:34ch;margin-top:20px}
+.ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+.trust{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:24px;color:var(--muted);font-size:15px}
+.trust span{display:inline-flex;align-items:center;gap:8px}
+.ico{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;flex:none}
+/* the signature: the shield as a page from a sefer */
+.sheet{background:var(--surface);border-radius:8px;padding:28px;box-shadow:0 0 0 1px rgb(30 25 18 / .12);max-width:380px;justify-self:center;width:100%}
+.sheet .app{color:var(--muted);font-weight:600;font-size:15px;text-align:center}
+.sheet .q{font:700 32px/1.15 var(--fd);text-align:center;margin-top:8px}
+.verse{border-block:1px solid var(--border);padding-block:22px;margin-block:22px;display:grid;gap:12px}
+.verse .he{font:500 30px/1.7 var(--fd);direction:rtl;text-align:right}
+.verse .tr{font-size:17px}
+.verse .ref{font-weight:600;font-size:14px;color:var(--primary)}
+.sheet .btn{width:100%}
+.sheet .skip{display:block;text-align:center;margin-top:10px;color:var(--primary);font-weight:600}
+/* sections */
+section{padding-block:clamp(56px,8vw,96px)}
+section+section{border-top:1px solid var(--border)}
+.eyebrow{color:var(--muted);font-weight:600;font-size:16px;margin-bottom:12px}
+h2{font-size:clamp(32px,4.5vw,48px);max-width:22ch}
+.lead{font-size:20px;color:var(--muted);max-width:60ch;margin-top:16px}
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:40px;margin-top:48px;counter-reset:s}
+@media (max-width:800px){.steps{grid-template-columns:1fr}}
+.steps li{list-style:none;border-top:2px solid var(--primary);padding-top:20px}
+.steps li::before{counter-increment:s;content:counter(s);font:700 44px/1 var(--fd);color:var(--primary);display:block;margin-bottom:12px}
+.steps h3,.feat h3{font:700 22px/1.3 var(--fb)}
+.steps p,.feat p{color:var(--muted);margin-top:8px}
+.steps,.feats{padding:0}
+.feats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;margin-top:40px;border-top:1px solid var(--border)}
+@media (max-width:720px){.feats{grid-template-columns:1fr}}
+.feat{list-style:none;padding:28px 0;border-bottom:1px solid var(--border);display:grid;grid-template-columns:auto 1fr;gap:16px}
+.feats .feat:nth-child(odd){padding-inline-end:32px}
+.feat .ico{width:28px;height:28px;color:var(--primary);margin-top:2px}
+.evidence{display:grid;grid-template-columns:auto 1fr;gap:12px 32px;align-items:baseline;margin-top:40px}
+.evidence .n{font:900 clamp(64px,10vw,120px)/1 var(--fd);color:var(--primary)}
+.evidence p{max-width:46ch;font-size:19px}
+.evidence small{grid-column:1/-1;color:var(--muted);font-size:14px}
+@media (max-width:600px){.evidence{grid-template-columns:1fr}}
+.plans{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;margin-top:40px;max-width:880px}
+@media (max-width:720px){.plans{grid-template-columns:1fr}}
+.plan{background:var(--surface);border-radius:8px;padding:28px;display:grid;gap:14px;align-content:start}
+.plan.pro{background:var(--primary-container);color:var(--on-primary-container)}
+.plan .price{font:700 40px/1 var(--fd)}
+.plan .per{font-size:16px;color:inherit;opacity:.85}
+.plan ul{margin:0;padding:0;display:grid;gap:10px}
+.plan li{list-style:none;display:flex;gap:10px;align-items:flex-start}
+.plan li .ico{margin-top:4px}
+details{border-bottom:1px solid var(--border);padding-block:6px}
+details:first-of-type{border-top:1px solid var(--border);margin-top:32px}
+summary{cursor:pointer;min-height:56px;display:flex;align-items:center;justify-content:space-between;gap:16px;font:600 19px var(--fb);list-style:none}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font:400 28px var(--fb);color:var(--primary)}
+details[open] summary::after{content:"−"}
+details p{color:var(--muted);padding-bottom:18px;max-width:70ch}
+.final{text-align:center}
+.final h2{margin-inline:auto}
+.final .ctas{justify-content:center}
+.wait{margin-top:24px;display:none;gap:10px;flex-wrap:wrap;justify-content:center}
+.wait.on{display:flex}
+.wait input{min-height:52px;min-width:260px;padding-inline:14px;border:1px solid var(--outline);border-radius:var(--r);background:var(--surface);color:var(--ink);font:400 17px var(--fb)}
+.msg{margin-top:12px;color:var(--muted);min-height:1.6em}
+footer{border-top:1px solid var(--border);padding-block:32px;color:var(--muted);font-size:15px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:12px 32px;justify-content:space-between}
+</style>
+</head>
+<body>
+<header><div class="wrap nav">
+  <a class="brand" href="#top" aria-label="Torah Break">
+    <svg width="26" height="36" viewBox="0 0 84 120" aria-hidden="true"><rect x="28" y="22" width="28" height="76" fill="var(--surface)" stroke="var(--ink)" stroke-width="3"/><rect x="14" y="14" width="16" height="92" rx="8" fill="var(--primary)"/><rect x="54" y="14" width="16" height="92" rx="8" fill="var(--primary)"/><circle cx="22" cy="8" r="6" fill="var(--ink)"/><circle cx="62" cy="8" r="6" fill="var(--ink)"/><circle cx="22" cy="112" r="6" fill="var(--ink)"/><circle cx="62" cy="112" r="6" fill="var(--ink)"/></svg>
+    Torah Break</a>
+  <a class="l" href="#como" data-i="nav.how"></a>
+  <a class="l" href="#planes" data-i="nav.plans"></a>
+  <a class="l" href="#faq" data-i="nav.faq"></a>
+  <div class="lang" role="group" aria-label="Idioma / Language / שפה">
+    <button type="button" data-lang="es" aria-pressed="true">ES</button><button type="button" data-lang="en" aria-pressed="false">EN</button><button type="button" data-lang="he" aria-pressed="false" lang="he">עב</button>
+  </div>
+</div></header>
+
+<main id="top">
+  <div class="wrap hero">
+    <div>
+      <h1 data-i="hero.title"></h1>
+      <p class="sub" data-i="hero.sub"></p>
+      <div class="ctas">
+        <a class="btn btn-primary" data-href="demo" data-i="cta.demo"></a>
+        <a class="btn btn-outline" href="#como" data-i="cta.how"></a>
+      </div>
+      <div class="trust">
+        <span><svg class="ico" aria-hidden="true"><use href="#i-lock"/></svg><span data-i="trust.private"></span></span>
+        <span><svg class="ico" aria-hidden="true"><use href="#i-candle"/></svg><span data-i="trust.shabbat"></span></span>
+      </div>
+    </div>
+    <figure class="sheet" aria-label="" data-i-aria="hero.shieldLabel">
+      <p class="app" data-i="shield.app"></p>
+      <p class="q" data-i="shield.q"></p>
+      <div class="verse">
+        <span class="ref" data-i="shield.ref"></span>
+        <p class="he" lang="he">לא ימוש ספר התורה הזה מפיך והגית בו יומם ולילה</p>
+        <p class="tr" data-i="shield.tr"></p>
+      </div>
+      <span class="btn btn-primary" aria-hidden="true" data-i="shield.read"></span>
+      <span class="skip" aria-hidden="true" data-i="shield.skip"></span>
+    </figure>
+  </div>
+
+  <section><div class="wrap">
+    <p class="eyebrow" data-i="problem.eyebrow"></p>
+    <h2 data-i="problem.title"></h2>
+    <p class="lead" data-i="problem.body"></p>
+    <div class="evidence">
+      <span class="n">57%</span>
+      <p data-i="evidence.body"></p>
+      <small><span data-i="evidence.source"></span> <a href="https://doi.org/10.1073/pnas.2213114120" target="_blank" rel="noopener">PNAS, 2023</a></small>
+    </div>
+  </div></section>
+
+  <section id="como"><div class="wrap">
+    <p class="eyebrow" data-i="how.eyebrow"></p>
+    <h2 data-i="how.title"></h2>
+    <ol class="steps">
+      <li><h3 data-i="how.s1t"></h3><p data-i="how.s1b"></p></li>
+      <li><h3 data-i="how.s2t"></h3><p data-i="how.s2b"></p></li>
+      <li><h3 data-i="how.s3t"></h3><p data-i="how.s3b"></p></li>
+    </ol>
+  </div></section>
+
+  <section><div class="wrap">
+    <p class="eyebrow" data-i="feat.eyebrow"></p>
+    <h2 data-i="feat.title"></h2>
+    <ul class="feats">
+      <li class="feat"><svg class="ico" aria-hidden="true"><use href="#i-moon"/></svg><div><h3 data-i="feat.f1t"></h3><p data-i="feat.f1b"></p></div></li>
+      <li class="feat"><svg class="ico" aria-hidden="true"><use href="#i-calendar"/></svg><div><h3 data-i="feat.f2t"></h3><p data-i="feat.f2b"></p></div></li>
+      <li class="feat"><svg class="ico" aria-hidden="true"><use href="#i-candle"/></svg><div><h3 data-i="feat.f3t"></h3><p data-i="feat.f3b"></p></div></li>
+      <li class="feat"><svg class="ico" aria-hidden="true"><use href="#i-book"/></svg><div><h3 data-i="feat.f4t"></h3><p data-i="feat.f4b"></p></div></li>
+    </ul>
+  </div></section>
+
+  <section id="planes"><div class="wrap">
+    <p class="eyebrow" data-i="plans.eyebrow"></p>
+    <h2 data-i="plans.title"></h2>
+    <div class="plans">
+      <div class="plan"><h3 data-i="plans.free"></h3><p class="price" data-i="plans.freePrice"></p><ul data-list="plans.freeItems"></ul></div>
+      <div class="plan pro"><h3 data-i="plans.pro"></h3><p class="price"><span data-i="plans.proPrice"></span> <span class="per" data-i="plans.per"></span></p><p data-i="plans.year"></p><ul data-list="plans.proItems"></ul></div>
+    </div>
+  </div></section>
+
+  <section id="faq"><div class="wrap">
+    <h2 data-i="faq.title"></h2>
+    <div id="faqList"></div>
+  </div></section>
+
+  <section class="final"><div class="wrap">
+    <h2 data-i="final.title"></h2>
+    <div class="ctas"><a class="btn btn-primary" data-href="demo" data-i="cta.demo"></a></div>
+    <form class="wait" id="wait" novalidate>
+      <label class="sr" for="email" data-i="wait.label"></label>
+      <input id="email" type="email" autocomplete="email" required data-i-ph="wait.ph">
+      <button class="btn btn-outline" type="submit" data-i="wait.cta"></button>
+    </form>
+    <p class="msg" id="msg" role="status" aria-live="polite"></p>
+  </div></section>
+</main>
+
+<footer><div class="wrap">
+  <span>© 2026 Torah Break</span>
+  <span data-i="foot.texts"></span>
+  <span data-i="foot.privacy"></span>
+</div></footer>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+  <symbol id="i-candle" viewBox="0 0 24 24"><path d="M9 22V11h6v11"/><path d="M12 8.5c1.3-1 1.3-2.7 0-4.5-1.3 1.8-1.3 3.5 0 4.5z"/><path d="M6 22h12"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"/></symbol>
+  <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></symbol>
+</svg>
+
+<script>
+const DEMO_URL = './app/';
+const T = {
+ es:{ 'nav.how':'Cómo funciona','nav.plans':'Planes','nav.faq':'Preguntas',
+  'hero.title':'Menos scroll. Más Torá.','hero.sub':'Cuando pasás demasiado tiempo en Instagram, TikTok o X, Torah Break te propone una pausa de dos minutos con la Torá.',
+  'cta.demo':'Probá la demo','cta.how':'Cómo funciona','trust.private':'Tus datos de uso nunca salen del teléfono','trust.shabbat':'Silencio total en Shabat y fiestas',
+  'hero.shieldLabel':'Así se ve el break cuando pasás tu límite',
+  'shield.app':'15 min en Instagram','shield.q':'¿Un break de Torá?','shield.ref':'Iehoshúa 1:8','shield.tr':'Este libro de la Torá no se apartará de tu boca; meditarás en él de día y de noche.','shield.read':'Leé 2 minutos','shield.skip':'Seguir igual',
+  'problem.eyebrow':'Te pasa a vos también','problem.title':'Abrís Instagram “un minuto” y se va la hora.','problem.body':'Querés estudiar más Torá, pero el momento nunca llega. Torah Break aprovecha justo el instante en que estás por scrollear de más y te ofrece algo mejor para leer. Sin culpa: siempre podés seguir igual.',
+  'evidence.body':'menos aperturas de las apps elegidas logró una pausa breve antes de abrirlas, después de seis semanas de uso.','evidence.source':'Estudio sobre la app one sec (no es Torah Break):',
+  'how.eyebrow':'Cómo funciona','how.title':'Tres pasos, dos minutos.','how.s1t':'Elegí tus apps','how.s1b':'Marcá las redes que querés cuidar y tu límite diario.','how.s2t':'Pausa inteligente','how.s2b':'Al pasar el límite aparece un pasuk. Leé dos minutos o seguí igual: vos decidís.','how.s3t':'Sumá tiempo con sentido','how.s3b':'Avanzás en la parashá de la semana, sumás racha y minutos de Torá.',
+  'feat.eyebrow':'Pensado para la vida judía','feat.title':'Respeta tu ritmo, no solo tu tiempo.','feat.f1t':'Modo Shabat automático','feat.f1b':'Sin alertas desde el encendido de velas hasta la havdalá. Shabat nunca rompe tu racha.','feat.f2t':'“Se viene Janucá”','feat.f2b':'Calendario con horarios, recordatorios de cada fiesta y opción Diáspora o Israel.','feat.f3t':'Iortzait','feat.f3b':'Calculamos la fecha hebrea cada año y te avisamos para encender la vela y estudiar en su memoria.','feat.f4t':'Español, English, עברית','feat.f4b':'Texto original en hebreo con traducción, con fuentes de licencia abierta.',
+  'plans.eyebrow':'Planes','plans.title':'Simple y accesible.','plans.free':'Gratis','plans.freePrice':'USD 0','plans.pro':'Premium','plans.proPrice':'USD 2,99','plans.per':'por mes','plans.year':'o USD 19,99 por año · 7 días de prueba',
+  'plans.freeItems':['1 app controlada','Parashá de la semana','Modo Shabat','1 iortzait'],'plans.proItems':['Apps ilimitadas','Iortzait ilimitadas con estudio en memoria','Estadísticas de tiempo recuperado','Audio de las lecturas (pronto)'],
+  'faq.title':'Preguntas frecuentes','faq':[['¿Torah Break lee mis mensajes o lo que veo?','No. Solo mide cuánto tiempo pasás en las apps que elegís, y esa medición se hace en tu teléfono. En iPhone usamos Tiempo en pantalla de Apple: ni siquiera nosotros podemos ver qué apps usás.'],['¿Qué pasa en Shabat y en las fiestas?','Nada: no aparecen breaks ni notificaciones desde el encendido de velas hasta la havdalá, según tu ubicación. Y Shabat no rompe tu racha.'],['¿Me obliga a leer?','Nunca. Siempre podés tocar “Seguir igual”. Es una invitación, no un castigo.'],['¿De dónde salen los textos?','De Sefaria, la biblioteca abierta de textos judíos. Usamos solo versiones con licencias que permiten su uso, y cada pasuk muestra su fuente.'],['¿Cuándo sale?','Estamos preparando el lanzamiento en iPhone y Android. Mientras tanto, podés probar la demo web.']],
+  'final.title':'Tu próximo scroll puede ser un pasuk.','wait.label':'Tu email','wait.ph':'tu@email.com','wait.cta':'Avisarme del lanzamiento','wait.ok':'¡Listo! Te avisamos cuando lancemos.','wait.err':'Revisá el email.','wait.fail':'No pudimos guardarlo. Probá de nuevo.',
+  'foot.texts':'Textos: Sefaria, licencias abiertas','foot.privacy':'Tus datos de uso nunca salen del teléfono' },
+ en:{ 'nav.how':'How it works','nav.plans':'Pricing','nav.faq':'FAQ',
+  'hero.title':'Less scrolling. More Torah.','hero.sub':'When you spend too long on Instagram, TikTok or X, Torah Break offers a two-minute pause with the Torah.',
+  'cta.demo':'Try the demo','cta.how':'How it works','trust.private':'Your usage data never leaves your phone','trust.shabbat':'Fully silent on Shabbat and holidays',
+  'hero.shieldLabel':'What your break looks like when you hit your limit',
+  'shield.app':'15 min on Instagram','shield.q':'Time for a Torah break?','shield.ref':'Joshua 1:8','shield.tr':'This book of the Torah shall not depart from your mouth; meditate on it day and night.','shield.read':'Read 2 min','shield.skip':'Continue anyway',
+  'problem.eyebrow':'Sound familiar?','problem.title':'You open Instagram “for a minute” and an hour is gone.','problem.body':'You want to learn more Torah, but the moment never comes. Torah Break uses the exact second you are about to over-scroll and offers you something better to read. No guilt: you can always continue anyway.',
+  'evidence.body':'fewer opens of chosen apps after six weeks, from a short pause before opening them.','evidence.source':'Study on the one sec app (not Torah Break):',
+  'how.eyebrow':'How it works','how.title':'Three steps, two minutes.','how.s1t':'Pick your apps','how.s1b':'Choose the apps to watch and your daily limit.','how.s2t':'Smart pause','how.s2b':'Hit your limit and a verse appears. Read for two minutes or continue: your call.','how.s3t':'Build meaningful time','how.s3b':'Move through the weekly parasha, grow your streak and your Torah minutes.',
+  'feat.eyebrow':'Built for Jewish life','feat.title':'Respects your rhythm, not just your time.','feat.f1t':'Automatic Shabbat mode','feat.f1b':'No alerts from candle lighting to havdalah. Shabbat never breaks your streak.','feat.f2t':'“Hanukkah is coming”','feat.f2b':'Calendar with times, holiday reminders and a Diaspora or Israel option.','feat.f3t':'Yahrzeit','feat.f3b':'We calculate the Hebrew date every year and remind you to light the candle and learn in their memory.','feat.f4t':'Español, English, עברית','feat.f4b':'Original Hebrew with translation, from openly licensed sources.',
+  'plans.eyebrow':'Pricing','plans.title':'Simple and affordable.','plans.free':'Free','plans.freePrice':'$0','plans.pro':'Premium','plans.proPrice':'$2.99','plans.per':'per month','plans.year':'or $19.99 per year · 7-day free trial',
+  'plans.freeItems':['1 monitored app','Weekly parasha','Shabbat mode','1 yahrzeit'],'plans.proItems':['Unlimited apps','Unlimited yahrzeits with memorial study','Time reclaimed stats','Audio readings (soon)'],
+  'faq.title':'Questions','faq':[['Does Torah Break read my messages or what I see?',"No. It only measures time in the apps you choose, on your phone. On iPhone we use Apple's Screen Time: not even we can see which apps you use."],['What happens on Shabbat and holidays?','Nothing: no breaks or notifications from candle lighting to havdalah, based on your location. And Shabbat never breaks your streak.'],['Does it force me to read?','Never. You can always tap “Continue anyway”. It is an invitation, not a punishment.'],['Where do the texts come from?','From Sefaria, the open library of Jewish texts. We only use versions whose licenses allow it, and every verse shows its source.'],['When does it launch?','We are preparing the iPhone and Android launch. Meanwhile, try the web demo.']],
+  'final.title':'Your next scroll could be a verse.','wait.label':'Your email','wait.ph':'you@email.com','wait.cta':'Notify me at launch','wait.ok':"You're in! We'll let you know at launch.",'wait.err':'Check the email.','wait.fail':"We couldn't save it. Try again.",
+  'foot.texts':'Texts: Sefaria, open licenses','foot.privacy':'Your usage data never leaves your phone' },
+ he:{ 'nav.how':'איך זה עובד','nav.plans':'מסלולים','nav.faq':'שאלות',
+  'hero.title':'פחות גלילה. יותר תורה.','hero.sub':'כשאתם מבלים יותר מדי זמן באינסטגרם, טיקטוק או X, Torah Break מציע הפסקה של שתי דקות עם התורה.',
+  'cta.demo':'לנסות את ההדגמה','cta.how':'איך זה עובד','trust.private':'נתוני השימוש לא יוצאים מהטלפון','trust.shabbat':'שקט מלא בשבת ובחגים',
+  'hero.shieldLabel':'כך נראית ההפסקה כשעוברים את המגבלה',
+  'shield.app':'15 דקות באינסטגרם','shield.q':'הפסקת תורה?','shield.ref':'יהושע א, ח','shield.tr':'','shield.read':'לקרוא 2 דקות','shield.skip':'להמשיך בכל זאת',
+  'problem.eyebrow':'מכירים את זה?','problem.title':'פותחים אינסטגרם "לרגע" והשעה עוברת.','problem.body':'רוצים ללמוד יותר תורה, אבל הרגע לא מגיע. Torah Break תופס בדיוק את השנייה שלפני הגלילה המיותרת ומציע משהו טוב יותר לקרוא. בלי אשמה: תמיד אפשר להמשיך.',
+  'evidence.body':'פחות פתיחות של האפליקציות שנבחרו אחרי שישה שבועות, בזכות הפסקה קצרה לפני הפתיחה.','evidence.source':'מחקר על האפליקציה one sec (לא Torah Break):',
+  'how.eyebrow':'איך זה עובד','how.title':'שלושה צעדים, שתי דקות.','how.s1t':'בחרו אפליקציות','how.s1b':'סמנו את הרשתות ואת המגבלה היומית.','how.s2t':'הפסקה חכמה','how.s2b':'כשעוברים את המגבלה מופיע פסוק. לקרוא שתי דקות או להמשיך: אתם מחליטים.','how.s3t':'צברו זמן משמעותי','how.s3b':'מתקדמים בפרשת השבוע, צוברים רצף ודקות תורה.',
+  'feat.eyebrow':'בנוי לחיים יהודיים','feat.title':'מכבד את הקצב שלכם, לא רק את הזמן.','feat.f1t':'מצב שבת אוטומטי','feat.f1b':'בלי התראות מהדלקת נרות ועד ההבדלה. שבת לא שוברת את הרצף.','feat.f2t':'"חנוכה מתקרב"','feat.f2b':'לוח שנה עם זמנים, תזכורות לכל חג ובחירה בין חוץ לארץ וישראל.','feat.f3t':'יארצייט','feat.f3b':'מחשבים את התאריך העברי כל שנה ומזכירים להדליק נר וללמוד לעילוי נשמה.','feat.f4t':'עברית, English, Español','feat.f4b':'המקור בעברית עם תרגום, ממקורות ברישיון פתוח.',
+  'plans.eyebrow':'מסלולים','plans.title':'פשוט ומשתלם.','plans.free':'חינם','plans.freePrice':'0$','plans.pro':'פרימיום','plans.proPrice':'2.99$','plans.per':'לחודש','plans.year':'או 19.99$ לשנה · 7 ימי ניסיון',
+  'plans.freeItems':['אפליקציה אחת במעקב','פרשת השבוע','מצב שבת','יארצייט אחד'],'plans.proItems':['אפליקציות ללא הגבלה','יארצייט ללא הגבלה עם לימוד לעילוי נשמה','סטטיסטיקת זמן שנחסך','הקלטות שמע (בקרוב)'],
+  'faq.title':'שאלות נפוצות','faq':[['האם Torah Break קורא את ההודעות שלי?','לא. הוא מודד רק את הזמן באפליקציות שבחרתם, בתוך הטלפון. באייפון אנחנו משתמשים בזמן מסך של Apple: גם אנחנו לא יכולים לראות באילו אפליקציות אתם משתמשים.'],['מה קורה בשבת ובחגים?','כלום: אין הפסקות ואין התראות מהדלקת נרות ועד ההבדלה, לפי המיקום. ושבת לא שוברת את הרצף.'],['זה מכריח אותי לקרוא?','אף פעם. תמיד אפשר ללחוץ "להמשיך בכל זאת". זו הזמנה, לא עונש.'],['מאיפה הטקסטים?','מספריא, הספרייה הפתוחה של טקסטים יהודיים. אנחנו משתמשים רק בגרסאות שהרישיון שלהן מאפשר זאת, וכל פסוק מציג את המקור.'],['מתי ההשקה?','אנחנו מכינים את ההשקה לאייפון ולאנדרואיד. בינתיים אפשר לנסות את ההדגמה.']],
+  'final.title':'הגלילה הבאה שלכם יכולה להיות פסוק.','wait.label':'האימייל שלכם','wait.ph':'האימייל שלכם','wait.cta':'עדכנו אותי בהשקה','wait.ok':'נרשמתם! נעדכן אתכם בהשקה.','wait.err':'בדקו את האימייל.','wait.fail':'לא הצלחנו לשמור. נסו שוב.',
+  'foot.texts':'טקסטים: ספריא, רישיונות פתוחים','foot.privacy':'נתוני השימוש לא יוצאים מהטלפון' }
+};
+let lang = 'es';
+try { const s = localStorage.getItem('tb-lang'); if (s && T[s]) lang = s; else { const n = (navigator.language||'es').slice(0,2); if (T[n]) lang = n; } } catch (e) {}
+const CHECK = '<svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>';
+function render(){
+  const d = T[lang];
+  document.documentElement.lang = lang; document.documentElement.dir = lang === 'he' ? 'rtl' : 'ltr';
+  document.querySelectorAll('[data-i]').forEach(el => { el.textContent = d[el.dataset.i] ?? ''; });
+  document.querySelectorAll('[data-i-aria]').forEach(el => el.setAttribute('aria-label', d[el.dataset.iAria]));
+  document.querySelectorAll('[data-i-ph]').forEach(el => el.setAttribute('placeholder', d[el.dataset.iPh]));
+  document.querySelectorAll('[data-list]').forEach(ul => { ul.innerHTML = ''; d[ul.dataset.list].forEach(t => { const li = document.createElement('li'); li.innerHTML = CHECK; const s = document.createElement('span'); s.textContent = t; li.appendChild(s); ul.appendChild(li); }); });
+  const fl = document.getElementById('faqList'); fl.innerHTML = '';
+  d.faq.forEach(([q,a]) => { const det = document.createElement('details'); const sm = document.createElement('summary'); sm.textContent = q; const p = document.createElement('p'); p.textContent = a; det.append(sm, p); fl.appendChild(det); });
+  document.querySelector('.verse .tr').hidden = !d['shield.tr'];
+  document.querySelectorAll('[data-lang]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.lang === lang)));
+  document.title = `Torah Break · ${d['hero.title']}`;
+}
+document.querySelectorAll('[data-href="demo"]').forEach(a => a.href = DEMO_URL);
+document.querySelectorAll('[data-lang]').forEach(b => b.addEventListener('click', () => { lang = b.dataset.lang; try { localStorage.setItem('tb-lang', lang); } catch (e) {} render(); }));
+render();
+
+/* Lista de espera: se guarda en la base del artifact cuando el visitante puede escribir (miembros invitados). */
+(async () => {
+  if (!window.claude) return;
+  const db = await window.claude.use('db'); const user = await window.claude.use('user');
+  if (!db || !user) return;
+  const form = document.getElementById('wait'); const msg = document.getElementById('msg');
+  form.classList.add('on');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = document.getElementById('email').value.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { msg.textContent = T[lang]['wait.err']; return; }
+    try {
+      const id = await user.id();
+      await db.collection('waitlist').doc(id).set({ email, lang, at: new Date().toISOString() });
+      msg.textContent = T[lang]['wait.ok']; form.reset();
+    } catch (err) { msg.textContent = T[lang]['wait.fail']; }
+  });
+})();
+</script>
+</body>
+</html>
